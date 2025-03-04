@@ -3,4 +3,6 @@ import socket #socket ist eine combination aus IP und PORT
 HOST = "localhost"
 PORT = 8080
 
-socket.socket(socket.AF_INET, socket.SOCK_STREAM) #AF_INET - IPv4, SOCK_STREAM - TCP
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server: #AF_INET - IPv4, SOCK_STREAM - TCP
+    server.bind(HOST, PORT)
+    server.listen(1)
