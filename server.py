@@ -13,10 +13,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server: #AF_INET - IPv
     server.listen(1)
     print(f"Server is listening to {HOST}:{PORT}")
 
-    conn, addr = server.accept() # server.accept wartet das der Client was sagt
-    print(f"Client {addr} is requesting an object!")
+    while True:
+        conn, addr = server.accept() # server.accept wartet das der Client was sagt
+        print(f"Client {addr} is requesting an object!")
 
-    with conn:
-        conn.sendall(respons.encode())
-        request = conn.recv(1024) # anzahl von byte
-        print(f"Was der Client eigentlch wollte: {request.decode()}")
+        with conn:
+            conn.sendall(respons.encode())
+            request = conn.recv(1024) # anzahl von byte
+            print(f"Was der Client eigentlch wollte: {request.decode()}")
