@@ -4,10 +4,11 @@ HOST = "localhost"
 PORT = 8080
 
 respons = "HTTP/1.1 200 OK\r\n" #\r - carriage retrn \n - new line pflicht lineending fuer HTPP
-respons += "Content-Type: text/html\r\n"
-respons += "Connection: close\r\n\r\n" #nach schliessen der connection, commt normal der body 
+respons += "Content-Type: text/json\r\n" #nach text kommt das gewuenschte format [plain, html, json, ...]
+respons += "Connection: close\r\n\r\n" 
+#nach schliessen der connection, commt normal der body 
 # der ist mit 2 \r\n gettrent
-respons += "<html><body><h1>Hello world</h1></body></html>"
+respons += "{'vorname': 'Hansi', 'nachname': 'Huber'}"
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server: #AF_INET - IPv4, SOCK_STREAM - TCP
     server.bind((HOST, PORT))
