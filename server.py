@@ -10,6 +10,14 @@ respons += "Connection: close\r\n\r\n"
 # der ist mit 2 \r\n gettrent
 respons += "{'vorname': 'Hansi', 'nachname': 'Huber'}"
 
+def handle_request(request):
+    lines = request.split("\r\n") #['GET / HTTP/1.1', ..... , 'Priority: u=0, i']
+    method, path, _ = lines[0].split(" ") #GET, /.... , nicht zugewiesen
+    #GET-> Methode /-> pfad HTTP-> protokoll/1.1-> version
+    if method == "GET" and path == "til":
+        # SELECT * FROM til
+        print("smthing so i do not have errors")
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server: #AF_INET - IPv4, SOCK_STREAM - TCP
     server.bind((HOST, PORT))
     server.listen(1)
@@ -20,6 +28,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server: #AF_INET - IPv
         print(f"Client {addr} is requesting an object!")
 
         with conn:
+            handle_request(conn.recv(1024)) # anzahl von byte
             conn.sendall(respons.encode())
-            request = conn.recv(1024) # anzahl von byte
             print(f"Was der Client eigentlch wollte: {request.decode()}")
