@@ -19,4 +19,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server: #AF_INET - IPv
     with conn:
         conn.sendall(respons.encode())
         request = conn.recv(1024) # anzahl von byte
-        print(f"Was der Client gigentich wollte: {request.decode()}")
+        print(f"Was der Client eigentlch wollte: {request.decode()}")
