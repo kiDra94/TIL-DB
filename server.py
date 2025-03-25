@@ -9,9 +9,10 @@ class HttpServer:
 
     def __enter__(self): # wird aufgerufen wenn man etwas mit with aufruft zu arbeiten
         self.__socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #AF_INET - IPv4, SOCK_STREAM - TCP
-        self.__socket.bind((HOST, PORT))
+        self.__socket.bind((self.__host, self.__port))
         self.__socket.listen(1)
-        return self # ist die as server 'variable'
+        print(f"Server is running {self.__host}:{self.__port}")
+        return self # ist die "as server 'variable'""
 
     def __exit__(self): # wird aufgerufen wenn man mit with fertig ist
         pass
