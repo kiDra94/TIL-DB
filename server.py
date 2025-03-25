@@ -16,7 +16,7 @@ class HttpServer:
         method, path, _ = lines[0].split(" ") #GET, /.... , nicht zugewiesen
 
     def receive(self, conn):
-        return conn.receive(1024)
+        return conn.receive(1024).decode()
 
 
 HOST = "localhost"
