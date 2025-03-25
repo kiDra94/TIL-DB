@@ -15,6 +15,9 @@ class HttpServer:
         lines = request.split("\r\n") #['GET / HTTP/1.1', ..... , 'Priority: u=0, i']
         method, path, _ = lines[0].split(" ") #GET, /.... , nicht zugewiesen
 
+    def receive(self, conn):
+        return conn.receive(1024)
+
 
 HOST = "localhost"
 PORT = 8080
@@ -23,7 +26,7 @@ server = HttpServer(HOST, PORT)
 
 while True:
     conn = server.accept()
-    request = conn.receive(1024).decode()
+    request = server.receive(conn)
     server.handle_request(request)
 
 exit()
