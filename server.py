@@ -1,7 +1,17 @@
 import socket #socket ist eine combination aus IP und PORT
 
+class HttpServer:
+
+    def __init__(self, host, port): #Konstruktor
+        self.host = host
+        self.port = port
+
 HOST = "localhost"
 PORT = 8080
+
+server = HttpServer(HOST, PORT)
+
+exit()
 
 respons = "HTTP/1.1 200 OK\r\n" #\r - carriage retrn \n - new line pflicht lineending fuer HTPP
 respons += "Content-Type: text/json\r\n" #nach text kommt das gewuenschte format [plain, html, json, ...]
