@@ -5,6 +5,12 @@ class HttpServer:
     def __init__(self, host, port): #Konstruktor
         self.__host = host
         self.__port = port
+        self.__socket = 
+
+    def accept(self):
+        conn, _ = self.__socket.accept() # _ sind nicht benutzte Variablen
+        return conn
+
 
 HOST = "localhost"
 PORT = 8080
