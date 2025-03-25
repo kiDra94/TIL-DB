@@ -24,14 +24,7 @@ class HttpServer:
     def receive(self, conn):
         return conn.receive(1024).decode()
 
-
-
-HOST = "localhost"
-PORT = 8080
-
-server = HttpServer(HOST, PORT)
-
-with HttpServer(HOST, PORT) as server:
+with HttpServer("localhost", 8080) as server:
     while True:
         conn = server.accept()
         request = server.receive(conn)
