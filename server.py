@@ -20,6 +20,7 @@ class HttpServer:
     def close(self):
         if self.__socket:
             self.__socket.close()
+            print("Server closed")
 
     def accept(self):
         conn, _ = self.__socket.accept() # _ sind nicht benutzte Variablen
