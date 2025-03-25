@@ -15,7 +15,11 @@ class HttpServer:
         return self # ist die "as server 'variable'""
 
     def __exit__(self): # wird aufgerufen wenn man mit with fertig ist
-        self.__socket.close()
+        self.close()
+
+    def close(self):
+        if self.__socket:
+            self.__socket.close()
 
     def accept(self):
         conn, _ = self.__socket.accept() # _ sind nicht benutzte Variablen
