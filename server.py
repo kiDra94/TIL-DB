@@ -3,8 +3,8 @@ import socket #socket ist eine combination aus IP und PORT
 class HttpServer:
 
     def __init__(self, host, port): #Konstruktor
-        self.host = host
-        self.port = port
+        self.__host = host
+        self.__port = port
 
 HOST = "localhost"
 PORT = 8080
