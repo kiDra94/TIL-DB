@@ -7,6 +7,12 @@ class HttpServer:
         self.__port = port
         self.__socket = 
 
+    def __enter__(self): # wird aufgerufen wenn man etwas mit with anfangt zu arbeiten
+        pass
+
+    def __exit__(self): # wird aufgerufen wenn man mit with fertig ist
+        pass
+
     def accept(self):
         conn, _ = self.__socket.accept() # _ sind nicht benutzte Variablen
         return conn
@@ -19,16 +25,19 @@ class HttpServer:
         return conn.receive(1024).decode()
 
 
+
 HOST = "localhost"
 PORT = 8080
 
 server = HttpServer(HOST, PORT)
 
-while True:
-    conn = server.accept()
-    request = server.receive(conn)
-    server.handle_request(request)
+with HttpServer(HOST, PORT) as server:
+    while True:
+        conn = server.accept()
+        request = server.receive(conn)
+        server.handle_request(request)
 
+server.close()
 exit()
 
 respons = "HTTP/1.1 200 OK\r\n" #\r - carriage retrn \n - new line pflicht lineending fuer HTPP
