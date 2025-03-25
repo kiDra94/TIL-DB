@@ -11,11 +11,20 @@ class HttpServer:
         conn, _ = self.__socket.accept() # _ sind nicht benutzte Variablen
         return conn
 
+    def handle_request(self, request):
+        lines = request.split("\r\n") #['GET / HTTP/1.1', ..... , 'Priority: u=0, i']
+        method, path, _ = lines[0].split(" ") #GET, /.... , nicht zugewiesen
+
 
 HOST = "localhost"
 PORT = 8080
 
 server = HttpServer(HOST, PORT)
+
+while True:
+    conn = server.accept()
+    request = conn.receive(1024).decode()
+    server.handle_request(request)
 
 exit()
 
