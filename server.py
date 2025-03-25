@@ -5,10 +5,13 @@ class HttpServer:
     def __init__(self, host, port): #Konstruktor
         self.__host = host
         self.__port = port
-        self.__socket = 
+        self.__socket = None
 
-    def __enter__(self): # wird aufgerufen wenn man etwas mit with anfangt zu arbeiten
-        pass
+    def __enter__(self): # wird aufgerufen wenn man etwas mit with aufruft zu arbeiten
+        self.__socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #AF_INET - IPv4, SOCK_STREAM - TCP
+        self.__socket.bind((HOST, PORT))
+        self.__socket.listen(1)
+        return self # ist die as server 'variable'
 
     def __exit__(self): # wird aufgerufen wenn man mit with fertig ist
         pass
