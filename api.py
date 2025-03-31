@@ -1,3 +1,23 @@
+def sag_immer_hallo(function):
+    def bla():
+        print("Hallo")
+        function()
+
+@sag_immer_hallo
+def welt():
+    print("Welt")
+
+@sag_immer_hallo
+def vilage():
+    print("Vilage")
+
+def addieren(a, b):
+
+    return a + b
+
+def subtrahieren(a, b):
+    return a - b
+
 def hallo():
     print("Hallo Welt")
 
@@ -6,7 +26,7 @@ def hello():
 
 def seas():
     print("Griaß di wöd")
-    
+   
 def szia():
     print("Szia Vilag")
 
