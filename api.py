@@ -18,15 +18,16 @@ def addieren(a, b):
 def subtrahieren(a, b):
     return a - b
 
+@hallo("/de")
 def hallo():
     print("Hallo Welt")
-
+@hallo("/en")
 def hello():
     print("Hello World")
-
+@hallo("/at")
 def seas():
     print("Griaß di wöd")
-   
+@hallo("/hu")  
 def szia():
     print("Szia Vilag")
 
