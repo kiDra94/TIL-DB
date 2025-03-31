@@ -40,7 +40,7 @@ with HttpServer("localhost", 8080) as server:
         server.handle_request(request)
 
 server.close()
-exit()
+exit() # beendet das Programm hier
 
 respons = "HTTP/1.1 200 OK\r\n" #\r - carriage retrn \n - new line pflicht lineending fuer HTPP
 respons += "Content-Type: text/json\r\n" #nach text kommt das gewuenschte format [plain, html, json, ...]
