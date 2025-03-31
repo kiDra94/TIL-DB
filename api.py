@@ -2,6 +2,7 @@ def sag_immer_hallo(function):
     def bla():
         print("Hallo")
         function()
+    return bla
 
 @sag_immer_hallo
 def welt():
@@ -12,7 +13,6 @@ def vilage():
     print("Vilage")
 
 def addieren(a, b):
-
     return a + b
 
 def subtrahieren(a, b):
