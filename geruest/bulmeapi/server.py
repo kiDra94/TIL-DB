@@ -1,0 +1,73 @@
+import socket
+
+class HttpServer:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self.socket = None
+
+    def __enter__(self):
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.bind((self.host, self.port))
+        self.socket.listen(1)
+        print(f"Server läuft auf {self.host}:{self.port}")
+        return self
+
+    def __exit__(self):
+        self.close()
+        print("Server gestoppt")
+
+    def close(self):
+        if self.socket:
+            self.socket.close()
+
+    def accept(self):
+        conn, _ = self.socket.accept()
+        return conn
+    
+    def receive(self, conn):
+        return conn.receive(1024).decode()
+    
+    def handle_request(self, request):
+        lines = request.split("\r\n")
+        method, path, _ = lines[0].split(" ")
+
+with HttpServer("localhost", 8080) as server:
+    while True:
+        conn = server.accept()
+        request = server.receive(conn)
+        server.handle_request(request)
+
+if __name__ == "__main__":
+    server = HttpServer("localhost", 8080)
+
+    print(server.host)
+    exit()
+
+    HOST = "localhost"
+    PORT = 8080
+
+    response = "HTTP/1.1 200 OK\r\n"
+    response += "Content-Type: text/json\r\n"
+    response += "Connection: close\r\n\r\n"
+    response += "{'vorname': 'Hansi', 'nachname': 'Huber'}"
+
+    def handle_request(request):
+        lines = request.split("\r\n")
+        method, path, _ = lines[0].split(" ")
+        if method == "GET" and path == "til":
+            # SELECT * FROM til
+            pass
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+        server.bind((HOST, PORT))
+        server.listen(1)
+        print(f"Server is listening to {HOST}:{PORT}")
+
+        while True:
+            conn, addr = server.accept()
+            print(f"Client {addr} is requesting something.")
+
+            with conn:
+                handle_request(conn.recv(1024))
+                conn.sendall(response.encode())
