@@ -1,5 +1,5 @@
-from MyLib import hallo
-from MyLib import world
+from MyLib import hallo , PASSWORD
+
 
 print(hallo())
-print(world())
+print(PASSWORD)
