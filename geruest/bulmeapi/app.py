@@ -1,7 +1,7 @@
 from .server import HttpServer
 
 class App:
-    def __init__(self):
+    def __init__(self): # Konstruktor
         self.routes = {}
 
     def route(self, path):
