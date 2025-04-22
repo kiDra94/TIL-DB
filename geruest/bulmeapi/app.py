@@ -2,7 +2,7 @@ from .server import HttpServer
 
 class App:
     def __init__(self): # Konstruktor
-        self.routes = {}
+        self.routes = {} # self.routes Datentyp -> Dict
 
     def route(self, path):
         def inner(func):
