@@ -4,6 +4,7 @@ import sqlite3
 
 app = App()
 
+#http://localhost:8080/tils
 @app.route("/tils")
 def tils(conn):
     q = """SELECT ts.id, ts.date, ts.desc, s.name subject
