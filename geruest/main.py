@@ -17,7 +17,7 @@ def tils(conn):
     return json.dumps(rows)
 
 
-tils = app.route("/tils")(tils)
+# tils = app.route("/tils")(tils) der aufgeschriebener decorator
 
 with sqlite3.connect("tils.db") as conn:
     app.run(conn)
