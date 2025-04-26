@@ -26,7 +26,7 @@ class HttpServer:
         return conn
     
     def receive(self, conn):
-        return conn.receive(1024).decode()
+        return conn.recv(1024).decode()
     
     def handle_request(self, request):
         lines = request.split("\r\n")
