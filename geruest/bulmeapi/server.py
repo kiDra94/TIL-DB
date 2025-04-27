@@ -68,6 +68,6 @@ if __name__ == "__main__":
             conn, addr = server.accept()
             print(f"Client {addr} is requesting something.")
 
-            with conn:
+        with conn:
                 handle_request(conn.recv(1024))
                 conn.sendall(response.encode())
