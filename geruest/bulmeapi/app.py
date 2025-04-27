@@ -11,4 +11,6 @@ class App:
         return inner
 
     def run(self, conn):
-        pass
+        data = conn.recv(1024).decode()
+        # do smth with data
+        conn.close()
