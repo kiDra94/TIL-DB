@@ -1,4 +1,5 @@
 from .server import HttpServer
+# App soll den HttpServer intern verwenden
 
 class App:
     def __init__(self): # Konstruktor

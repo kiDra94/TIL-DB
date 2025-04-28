@@ -32,12 +32,6 @@ class HttpServer:
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ")
 
-with HttpServer("localhost", 8080) as server:
-    while True:
-        conn = server.accept()
-        request = server.receive(conn)
-        server.handle_request(request)
-
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
 
