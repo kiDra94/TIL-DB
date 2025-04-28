@@ -51,13 +51,13 @@ class HttpServer:
         return "GET", path, headers, None    
     
     def handle_put_request(self, path, headers, request):
-        return "GET", path, headers, data 
+        return "GET", path, headers, None 
 
     def handle_post_request(self, path, headers, request):
-        pass
+        return "POST", path, headers, None
 
     def handle_delete_request(self, path, headers, request):
-        pass
+        return "DELETE", path, headers, None
 
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
