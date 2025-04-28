@@ -28,7 +28,7 @@ class HttpServer:
     def receive(self, conn):
         return conn.recv(1024).decode()
     
-    def handle_request(self, request):
+    def handle_get_request(self, request): #
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ") #z.B GET /til
         headers = {} # BSP fuer Header https://developer.mozilla.org/en-US/docs/Glossary/HTTP_header
@@ -38,6 +38,15 @@ class HttpServer:
             key, val =  line.split(": ", 1) # splitet nur nach dem ersten ': '
             headers.setdefault(key.strip(), val.strip()) 
         return method, path, headers
+    
+    def handle_put_request(self, request):
+        pass
+
+    def handle_post_request(self, request):
+        pass
+
+    def handle_delete_request(self, request):
+        pass
 
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
