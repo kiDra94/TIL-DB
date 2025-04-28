@@ -40,10 +40,14 @@ class HttpServer:
 
         if method == "GET":
             return self.handle_get_request(self, path, headers, request)
-        elif method == "put":
+        elif method == "PUT":
+            return self.handle_get_request(self, path, headers, request)
+        elif method == "POST":
+            return self.handle_get_request(self, path, headers, request)
+        elif method == "DELETE":
             return self.handle_get_request(self, path, headers, request)
         else:
-            raise Exception("TO DO: impelement!")
+            raise Exception("Invalid method!")
 
         return method, path, headers
 
