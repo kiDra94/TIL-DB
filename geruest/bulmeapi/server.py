@@ -33,7 +33,10 @@ class HttpServer:
         method, path, _ = lines[0].split(" ") #z.B GET /til
         headers = {}
         for line in lines[1:]:
-            headers.setdefault(line.split(": ", 1)) # splitet nur nach dem ersten ': '
+            if line.isspace:
+                continue
+            key, val =  line.split(": ", 1) # splitet nur nach dem ersten ': '
+            headers.setdefault(key.strip(), val.strip()) 
 
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
