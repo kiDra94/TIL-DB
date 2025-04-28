@@ -33,7 +33,7 @@ class HttpServer:
         method, path, _ = lines[0].split(" ") #z.B GET /til
         headers = {}
         for line in lines[1:]:
-            if line.isspace:
+            if line.strip() == "":
                 continue
             key, val =  line.split(": ", 1) # splitet nur nach dem ersten ': '
             headers.setdefault(key.strip(), val.strip()) 
