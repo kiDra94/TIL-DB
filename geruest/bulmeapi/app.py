@@ -12,6 +12,11 @@ class App:
         return inner
 
     def run(self, conn):
+        with HttpServer("localhost", 8080) as server:
+            while True:
+                conn = server.accept()
+                request = server.receive(conn)
+                server.handle_request(request)
         data = conn.recv(1024).decode()
         # do smth with data
         conn.close()
