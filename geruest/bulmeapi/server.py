@@ -30,7 +30,8 @@ class HttpServer:
     
     def handle_request(self, request):
         lines = request.split("\r\n")
-        method, path, _ = lines[0].split(" ")
+        method, path, _ = lines[0].split(" ") #z.B GET /til
+
 
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
