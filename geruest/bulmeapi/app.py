@@ -11,8 +11,8 @@ class App:
             return func
         return inner
 
-    def run(self, conn):
-        with HttpServer("localhost", 8080) as server:
+    def run(self, conn, host="localhost", port="8080"):
+        with HttpServer(host, port) as server:
             while True:
                 conn = server.accept()
                 request = server.receive(conn)
