@@ -31,12 +31,13 @@ class HttpServer:
     def handle_request(self, request):
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ") #z.B GET /til
-        headers = {} # BSP fuer Header https://developer.mozilla.org/en-US/docs/Glossary/Request_header
+        headers = {} # BSP fuer Header https://developer.mozilla.org/en-US/docs/Glossary/HTTP_header
         for line in lines[1:]:
             if line.strip() == "":
                 continue
             key, val =  line.split(": ", 1) # splitet nur nach dem ersten ': '
             headers.setdefault(key.strip(), val.strip()) 
+        return method, path, headers
 
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
