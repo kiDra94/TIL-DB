@@ -13,6 +13,10 @@ class App:
 
     def handle_request(self, request, server, conn):
         method, path, headers, body = server.handle_request(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
+        if path in self.routes:
+            return None # TODO: valid response
+        else:
+            return None # Error: 404
 
     def run(self, conn, host="localhost", port="8080"):
         # der Clienet bekommt jetzt eine antwort
