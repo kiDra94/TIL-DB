@@ -12,6 +12,7 @@ class App:
         return inner
 
     def run(self, conn, host="localhost", port="8080"):
+        # der Clienet bekommt jetzt eine antwort
         with HttpServer(host, port) as server:
             while True:
                 conn = server.accept()
