@@ -31,7 +31,7 @@ class HttpServer:
     def handle_request(self, request):
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ") #z.B GET /til
-        headers = {}
+        headers = {} # BSP fuer Header https://developer.mozilla.org/en-US/docs/Glossary/Request_header
         for line in lines[1:]:
             if line.strip() == "":
                 continue
