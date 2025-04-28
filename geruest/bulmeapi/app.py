@@ -16,7 +16,7 @@ class App:
             while True:
                 conn = server.accept()
                 request = server.receive(conn)
-                server.handle_request(request)
+                response = server.handle_request(request)
         data = conn.recv(1024).decode()
         # do smth with data
         conn.close()
