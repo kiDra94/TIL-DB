@@ -47,6 +47,8 @@ class HttpServer:
 
         return method, path, headers
 
+    # wichtig das der return gelich ausschaut, da dies in der handle_request
+    # nicht funktionieren wuerden
     def handle_get_request(self, path, headers, request):
         return "GET", path, headers, None    
     
