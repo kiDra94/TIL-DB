@@ -31,7 +31,9 @@ class HttpServer:
     def handle_request(self, request):
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ") #z.B GET /til
-
+        headers = {}
+        for line in lines[1:]:
+            headers.setdefault(line.split(": ", 1)) # splitet nur nach dem ersten ': '
 
 if __name__ == "__main__":
     server = HttpServer("localhost", 8080)
