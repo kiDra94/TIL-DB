@@ -28,7 +28,7 @@ class HttpServer:
     def receive(self, conn):
         return conn.recv(1024).decode()
     
-    def handle_get_request(self, request): #
+    def handle_request(self, request):
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ") #z.B GET /til
         headers = {} # BSP fuer Header https://developer.mozilla.org/en-US/docs/Glossary/HTTP_header
@@ -37,15 +37,26 @@ class HttpServer:
                 continue
             key, val =  line.split(": ", 1) # splitet nur nach dem ersten ': '
             headers.setdefault(key.strip(), val.strip()) 
+
+        if method == "GET":
+            return self.handle_get_request(self, path, headers, request)
+        elif method == "put":
+            return self.handle_get_request(self, path, headers, request)
+        else:
+            raise Exception("TO DO: impelement!")
+
         return method, path, headers
+
+    def handle_get_request(self, path, headers, request):
+        return "GET", path, headers, None    
     
-    def handle_put_request(self, request):
+    def handle_put_request(self, path, headers, request):
+        return "GET", path, headers, data 
+
+    def handle_post_request(self, path, headers, request):
         pass
 
-    def handle_post_request(self, request):
-        pass
-
-    def handle_delete_request(self, request):
+    def handle_delete_request(self, path, headers, request):
         pass
 
 if __name__ == "__main__":
