@@ -40,6 +40,6 @@ class App:
             while True:
                 conn = server.accept()
                 request = server.receive(conn)
-                response = server.handle_request(request, sqlconn)
+                response = self.handle_request(request, server, sqlconn)
                 conn.send(response.encode())
                 conn.close()
