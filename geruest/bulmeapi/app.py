@@ -15,7 +15,7 @@ class App:
         method, path, headers, body = server.handle_request(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
         if path in self.routes:
             func = self.routes[path]
-            result = func() # wird von der main.py returned da die function die def tils ist
+            result = func(sqlconn) # wird von der main.py returned da die function die def tils ist
             return self.create_respons(result)
         else:
             return self.create_respons("Not found", 404)
@@ -40,6 +40,6 @@ class App:
             while True:
                 conn = server.accept()
                 request = server.receive(conn)
-                response = server.handle_request(request)
+                response = server.handle_request(request, sqlconn)
                 conn.send(response.encode())
                 conn.close()
