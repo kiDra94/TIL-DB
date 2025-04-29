@@ -16,6 +16,12 @@ def tils(sqlconn):
     rows = cursor.fetchall()
     return json.dumps(rows) # dumps -> dump string
 
+def add_new_til(subject, date, descripton):
+    sid = "SELECT id FROM subjects WHERE name = {subject}"
+    if sid is None:
+        sid = "INSERT INTO subjects VALUES({subject}) RETURNING id"
+    tid = "INSERT INTO tils (data, descriptions, subject_id) VALUES (data, descriptions, sid) RETURNING id"
+    return tid
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
 
