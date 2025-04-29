@@ -3,13 +3,21 @@ from .server import HttpServer
 
 class App:
     def __init__(self): # Konstruktor
-        self.routes = {} # self.routes Datentyp -> Dict
+        # self.routes = {} # self.routes Datentyp -> Dict
+        self.gets = {}
+        self.post = {}
 
-    def route(self, path):
+    def route(self, path, dict):
         def inner(func):
-            self.routes[path] = func
+            dict[path] = func
             return func
         return inner
+    
+    def get(self, path):
+        self.route(path,self.get)
+        
+    def post(self, path):
+        self.route(path,self.post)
 
     def handle_request(self, request, server, sqlconn):
         method, path, headers, body = server.parse_http(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
