@@ -18,7 +18,7 @@ class App:
         else:
             return None # Error: 404
 
-    def run(self, conn, host="localhost", port="8080"):
+    def run(self, host="localhost", port="8080"):
         # der Clienet bekommt jetzt eine antwort
         with HttpServer(host, port) as server:
             while True:
