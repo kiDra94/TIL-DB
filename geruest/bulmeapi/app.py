@@ -11,7 +11,7 @@ class App:
             return func
         return inner
 
-    def handle_request(self, request, server, conn):
+    def handle_request(self, request, server, sqlconn):
         method, path, headers, body = server.handle_request(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
         if path in self.routes:
             func = self.routes[path]
