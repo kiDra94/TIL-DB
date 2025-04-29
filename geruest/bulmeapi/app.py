@@ -14,9 +14,11 @@ class App:
     def handle_request(self, request, server, conn):
         method, path, headers, body = server.handle_request(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
         if path in self.routes:
-            return self.create_respons() # TODO: valid response
+            func = self.routes[path]
+            result = func() # wird von der main.py returned da die function die def tils ist
+            return self.create_respons(result)
         else:
-            return self.create_respons(404)
+            return self.create_respons("Not found", 404)
 
     def create_respons(self, content, statuscode=200):
         headers = {
