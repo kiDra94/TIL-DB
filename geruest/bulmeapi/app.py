@@ -16,10 +16,21 @@ class App:
         if path in self.routes:
             return self.create_respons() # TODO: valid response
         else:
-            return self.create_respons() # Error: 404
+            return self.create_respons(404)
 
-    def create_respons(self):
-        pass
+    def create_respons(self, content, statuscode=200):
+        headers = {
+            "Content-Type": "application/json; charset=utf-8",
+            "Content-Length": str(len(content))
+        }
+
+        response = f"HTTP/1.1 {statuscode} \r\n"
+        for header, value in headers.items():
+            response += f"{header}: {value}\r\n"
+        response += "\r\n"
+        response += content
+
+        return response
 
     def run(self, host="localhost", port="8080"):
         # der Clienet bekommt jetzt eine antwort
