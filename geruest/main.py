@@ -19,8 +19,9 @@ def tils(sqlconn):
 def add_new_til(subject, date, descripton):
     sid = "SELECT id FROM subjects WHERE name = {subject}"
     if sid is None:
-        sid = "INSERT INTO subjects VALUES({subject}) RETURNING id"
-    tid = "INSERT INTO tils (data, descriptions, subject_id) VALUES (data, descriptions, sid) RETURNING id"
+        cursor.execute("INSERT INTO subjects VALUES(?) RETURNING id", (subject))
+    stmt = "INSERT INTO tils (data, descriptions, subject_id) VALUES (?, ?, ?) RETURNING id"
+    cursor.execute(stmt, (data, descriptions, sid))
     return tid
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
