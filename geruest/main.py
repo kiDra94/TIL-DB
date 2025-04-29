@@ -6,12 +6,12 @@ app = App()
 
 #http://localhost:8080/tils
 @app.route("/tils")
-def tils(conn):
+def tils(sqlconn):
     q = """SELECT ts.id, ts.date, ts.desc, s.name subject
     FROM tils ts
     LEFT JOIN  subjects s ON ts.subject_id = s.id
     """
-    cursor = conn.cursor()
+    cursor = sqlconn.cursor()
     cursor.execute(q)
     rows = cursor.fetchall()
     return json.dumps(rows) # dumps -> dump string
@@ -19,5 +19,5 @@ def tils(conn):
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
 
-with sqlite3.connect("tils.db") as conn:
-    app.run(conn)
+with sqlite3.connect("tils.db") as sqlconn:
+    app.run(sqlconn)
