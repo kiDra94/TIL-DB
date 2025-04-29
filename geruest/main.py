@@ -5,7 +5,7 @@ import sqlite3
 app = App()
 
 #http://localhost:8080/tils
-@app.route("/tils")
+@app.get("/tils")
 def tils(sqlconn):
     q = """SELECT ts.id, ts.date, ts.desc, s.name subject
     FROM tils ts
@@ -16,6 +16,7 @@ def tils(sqlconn):
     rows = cursor.fetchall()
     return json.dumps(rows) # dumps -> dump string
 
+@app.post("/tils")
 def add_new_til(subject, date, descripton):
     sid = "SELECT id FROM subjects WHERE name = {subject}"
     if sid is None:
