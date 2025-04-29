@@ -14,7 +14,7 @@ def tils(conn):
     cursor = conn.cursor()
     cursor.execute(q)
     rows = cursor.fetchall()
-    return json.dumps(rows)
+    return json.dumps(rows) # dumps -> dump string
 
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
