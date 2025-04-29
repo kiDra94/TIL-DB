@@ -19,7 +19,7 @@ def tils(sqlconn):
 def add_new_til(subject, date, descripton):
     sid = "SELECT id FROM subjects WHERE name = {subject}"
     if sid is None:
-        cursor.execute("INSERT INTO subjects VALUES(?) RETURNING id", (subject))
+        sid = cursor.execute("INSERT INTO subjects VALUES(?) RETURNING id", (subject))
     stmt = "INSERT INTO tils (data, descriptions, subject_id) VALUES (?, ?, ?) RETURNING id"
     cursor.execute(stmt, (data, descriptions, sid)) # absicherung gegen SQl-Injections
     return tid
