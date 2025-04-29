@@ -21,7 +21,7 @@ def add_new_til(subject, date, descripton):
     if sid is None:
         cursor.execute("INSERT INTO subjects VALUES(?) RETURNING id", (subject))
     stmt = "INSERT INTO tils (data, descriptions, subject_id) VALUES (?, ?, ?) RETURNING id"
-    cursor.execute(stmt, (data, descriptions, sid))
+    cursor.execute(stmt, (data, descriptions, sid)) # absicherung gegen SQl-Injections
     return tid
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
