@@ -28,7 +28,7 @@ class HttpServer:
     def receive(self, conn):
         return conn.recv(1024).decode()
     
-    def handle_request(self, request):
+    def parse_handle_request(self, request):
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ") #z.B GET /til
         headers = {} # BSP fuer Header https://developer.mozilla.org/en-US/docs/Glossary/HTTP_header
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     response += "Connection: close\r\n\r\n"
     response += "{'vorname': 'Hansi', 'nachname': 'Huber'}"
 
-    def handle_request(request):
+    def parse_handle_request(request):
         lines = request.split("\r\n")
         method, path, _ = lines[0].split(" ")
         if method == "GET" and path == "til":

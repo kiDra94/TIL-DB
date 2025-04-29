@@ -12,7 +12,7 @@ class App:
         return inner
 
     def handle_request(self, request, server, sqlconn):
-        method, path, headers, body = server.handle_request(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
+        method, path, headers, body = server.parse_handle_request(request) #kriegt nur die antwort von der Http aber macht es nicht sleber
         if path in self.routes:
             func = self.routes[path]
             result = func(sqlconn) # wird von der main.py returned da die function die def tils ist
