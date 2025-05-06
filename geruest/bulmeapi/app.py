@@ -13,9 +13,11 @@ class App:
             return func
         return inner
     
+    #die funktion welche unter dem dekorator stehen, werden in die routen reingeschrieben
     def get(self, path):
         self.route(path,self.get)
-        
+
+    #die funktion welche unter dem dekorator stehen, werden in die routen reingeschrieben    
     def post(self, path):
         self.route(path,self.post)
 
