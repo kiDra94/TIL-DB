@@ -18,7 +18,7 @@ def tils(sqlconn):
     return json.dumps(rows) # dumps -> dump string
 
 @app.post("/tils")
-def add_new_til(subject, date, descripton):
+def add_new_til(sqlconn, subject, date, descripton):
     """
     data koente so auscchauen
     data = {
@@ -27,8 +27,9 @@ def add_new_til(subject, date, descripton):
         'description': 'Nix gelernt. JedeJahr das gleiche!'
     }
     """
-    sid = "SELECT id FROM subjects WHERE name = {:subject}"
+    sid_stmt = "SELECT id FROM subjects WHERE name = {:subject}"
     cursor = sqlconn.cursor() 
+    sid = cursor.execuete(sid_stmt, (subject)).fetchone()
 
     # absicherung gegen SQl-Injections mit Platzhalter (Prepeared-stmt)
     if sid is None:
@@ -42,6 +43,58 @@ def add_new_til(subject, date, descripton):
     insterted_id = row[0] if row else None # sollte einen id haben da -> RERTURNING id
     conn.commit() #
     return insterted_id
+
+@app.put("/tils")
+def update_til(sqlconn, subject, date, description, id):
+    cursor = sqlconn.cursor()
+
+    sid_stmt = "SELECT id FROM subjects WHERE name = {:subject}"
+    cursor = sqlconn.cursor() 
+    sid = cursor.execuete(sid_stmt, (subject)).fetchone()
+    if sid is None:
+        sid = cursor.execute("INSERT INTO subjects VALUES({:subject}) RETURNING id")
+    
+    check_id_stmt = "SELECT id FROM tils WHERE id = {:id}"
+    cid = cursor.execuete(check_id_stmt, (id, ))
+    if cid is None:
+        sqlconn.close()
+        return "ERROR unknown til"
+    else:
+        stmt = "UPDATE tils SET subject = {:subject}, date = {:date}, description = {:description} WHERE id = {:id}"
+        curser.execuete(stmt, (id, subject, date, description))
+        sqlconn.commit()
+
+        get_new_til_stmt = """SELECT ts.id, ts.date, ts.desc, s.name subject
+                            FROM tils ts
+                            LEFT JOIN  subjects s ON ts.subject_id = s.id"""
+
+        new_data = cursor.execute(get_new_til_stmt, (id, subject, date, description)).fetchone()
+        sqlconn.close()
+
+    return ("Updateted TIL", json.dumps(new_data))
+
+@app.delete("/tils")
+def delete_til(sqlconn, id):
+    cursor = sqlconn.cursor()
+
+    check_id_stmt = "SELECT id FROM tils WHERE id = {:id}"
+    cid = cursor.execuete(check_id_stmt, (id, ))
+    if cid is None:
+        sqlconn.close()
+        return "ERROR unknown til"
+    else:
+        get_data_befor_delete_stmt = """SELECT ts.id, ts.date, ts.desc, s.name subject
+                                        FROM tils ts
+                                        LEFT JOIN  subjects s ON ts.subject_id = s.id"""
+        data_befor_delete = cursor.execuete(get_data_befor_delete_stmt, (id, subject, date, description)).fetchone
+
+        stmt = "DELETE FROM tils where id = {:id}"
+        cursor.execuete(stmt, (id,))
+        sqlconn.commit()
+        sqlconn.close()
+
+    return ("DELETED data", json.dumps(data_befor_delete))
+        
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
 
