@@ -41,7 +41,7 @@ def add_new_til(subject, date, descripton):
     #fetchone da ein inster nur eine zeile ist
     insterted_id = row[0] if row else None # sollte einen id haben da -> RERTURNING id
     conn.commit() #
-    return tid
+    return insterted_id
 
 # tils = app.route("/tils")(tils) der aufgeschriebener decorator
 
