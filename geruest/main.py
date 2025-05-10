@@ -27,7 +27,7 @@ def add_new_til(subject, date, descripton):
         'description': 'Nix gelernt. JedeJahr das gleiche!'
     }
     """
-    sid = "SELECT id FROM subjects WHERE name = {subject}"
+    sid = "SELECT id FROM subjects WHERE name = {:subject}"
     cursor = sqlconn.cursor() 
 
     # absicherung gegen SQl-Injections mit Platzhalter (Prepeared-stmt)
