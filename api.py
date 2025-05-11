@@ -18,6 +18,8 @@ def addieren(a, b):
 def subtrahieren(a, b):
     return a - b
 
+welt()
+
 @hallo("/de")
 def hallo():
     print("Hallo Welt")
