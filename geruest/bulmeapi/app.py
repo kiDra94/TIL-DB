@@ -15,7 +15,7 @@ class App:
     
     #die funktion welche unter dem dekorator stehen, werden in die routen reingeschrieben
     def get(self, path):
-        self.route(path,self.get)
+        self.route(path,self.gets)
 
     #die funktion welche unter dem dekorator stehen, werden in die routen reingeschrieben    
     def post(self, path):
