@@ -41,7 +41,7 @@ import sqlite3
 with sqlite3.connect(../applicants.db) as conn:
     stmt = """SELECT a.first, s.name FROM applicants as a
               LEFT JOIN states as s ON  a.state_id = s.id
-              WHERE s.name LIKE :statement'"""
+              WHERE s.name LIKE {:statement}"""
     
     cursore = conn.cursor()
     result = cursore.execute(stmt, 'Abgehelent')
@@ -59,5 +59,15 @@ def applicants():
 ```
 
 Class Sql:
-    todo
+    
+    def update(self, data, conn):
+        def decorator(func):
+            cursor = conn.cursor()
+            stmt = "UPDATE applicants SET state = {:new_state} WHERE id = {:id}"
+            ids = func()
+            for i in ids:
+                curosor.execute(stmt, data[1], i)
+                cursor.commit()
+            return cursors.execute("SELECT * FROM applicants WHERE id IN {:ids}", ids).fetchall()
+        return decorator
 
