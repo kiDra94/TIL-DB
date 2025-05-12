@@ -63,10 +63,10 @@ Class Sql:
     def update(self, data, conn):
         def decorator(func):
             cursor = conn.cursor()
-            stmt = "UPDATE applicants SET state = {:new_state} WHERE id = {:id}"
+            stmt = "UPDATE applicants SET state = {:state} WHERE id = {:id}"
             ids = func()
             for id in ids:
-                curosor.execute(stmt, data[1], id)
+                curosor.execute(stmt, {"state": data["state"], "id": id})
                 cursor.commit()
             return cursors.execute("SELECT * FROM applicants WHERE id IN {:ids}", ids).fetchall()
         return decorator
