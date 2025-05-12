@@ -44,7 +44,7 @@ with sqlite3.connect(../applicants.db) as conn:
               WHERE s.name LIKE {:statement}"""
     
     cursore = conn.cursor()
-    result = cursore.execute(stmt, 'Abgehelent')
+    result = cursore.execute(stmt, {'statment':'Abgehelent'})
     for row in result.fetchall():
         print(row)
 
