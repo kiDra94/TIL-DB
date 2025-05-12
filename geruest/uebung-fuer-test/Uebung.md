@@ -29,7 +29,7 @@ Schriebe eine Abfrage, die eine Liste aller Bewerber
 mit ihrem Bewerbungsstatus ausgibt
 
 SELECT * FROM applicants as a
-JOIN states as s ON  a.state_id = s.id;
+LEFT JOIN states as s ON  a.state_id = s.id;
 
 ## Aufgabe 3
 
