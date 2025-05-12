@@ -65,8 +65,8 @@ Class Sql:
             cursor = conn.cursor()
             stmt = "UPDATE applicants SET state = {:new_state} WHERE id = {:id}"
             ids = func()
-            for i in ids:
-                curosor.execute(stmt, data[1], i)
+            for id in ids:
+                curosor.execute(stmt, data[1], id)
                 cursor.commit()
             return cursors.execute("SELECT * FROM applicants WHERE id IN {:ids}", ids).fetchall()
         return decorator
