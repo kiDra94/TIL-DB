@@ -14,7 +14,7 @@ class HttpServer:
         print(f"Server is running {self.__host}:{self.__port}")
         return self # ist die "as server 'variable'""
 
-    def __exit__(self): # wird aufgerufen wenn man mit with fertig ist
+    def __exit__(self, exc_type, exc_value, traceback): # wird aufgerufen wenn man mit with fertig ist (Python uebergibt immer diese 3 Parameter)
         self.close()
 
     def close(self):

@@ -27,7 +27,7 @@ def add_new_til(sqlconn, subject, date, descripton):
         'description': 'Nix gelernt. JedeJahr das gleiche!'
     }
     """
-    sid_stmt = "SELECT id FROM subjects WHERE name = {:subject}"
+    sid_stmt = "SELECT id FROM subjects WHERE name = :subject"
     cursor = sqlconn.cursor() 
     sid = cursor.execuete(sid_stmt, (subject)).fetchone()
 
@@ -48,19 +48,19 @@ def add_new_til(sqlconn, subject, date, descripton):
 def update_til(sqlconn, subject, date, description, id):
     cursor = sqlconn.cursor()
 
-    sid_stmt = "SELECT id FROM subjects WHERE name = {:subject}"
+    sid_stmt = "SELECT id FROM subjects WHERE name = :subject"
     cursor = sqlconn.cursor() 
     sid = cursor.execuete(sid_stmt, (subject)).fetchone()
     if sid is None:
-        sid = cursor.execute("INSERT INTO subjects VALUES({:subject}) RETURNING id")
+        sid = cursor.execute("INSERT INTO subjects VALUES(:subject) RETURNING id")
     
-    check_id_stmt = "SELECT id FROM tils WHERE id = {:id}"
+    check_id_stmt = "SELECT id FROM tils WHERE id = :id"
     cid = cursor.execuete(check_id_stmt, (id, ))
     if cid is None:
         sqlconn.close()
         return "ERROR unknown til"
     else:
-        stmt = "UPDATE tils SET subject = {:subject}, date = {:date}, description = {:description} WHERE id = {:id}"
+        stmt = "UPDATE tils SET subject = :subject, date = :date, description = :description WHERE id = :id"
         curser.execuete(stmt, (id, subject, date, description))
         sqlconn.commit()
 
@@ -77,7 +77,7 @@ def update_til(sqlconn, subject, date, description, id):
 def delete_til(sqlconn, id):
     cursor = sqlconn.cursor()
 
-    check_id_stmt = "SELECT id FROM tils WHERE id = {:id}"
+    check_id_stmt = "SELECT id FROM tils WHERE id = :id"
     cid = cursor.execuete(check_id_stmt, (id, ))
     if cid is None:
         sqlconn.close()
@@ -88,7 +88,7 @@ def delete_til(sqlconn, id):
                                         LEFT JOIN  subjects s ON ts.subject_id = s.id"""
         data_befor_delete = cursor.execuete(get_data_befor_delete_stmt, (id, subject, date, description)).fetchone
 
-        stmt = "DELETE FROM tils where id = {:id}"
+        stmt = "DELETE FROM tils where id = :id"
         cursor.execuete(stmt, (id,))
         sqlconn.commit()
         sqlconn.close()
@@ -118,7 +118,8 @@ with sqlite3.connect("tils.db") as sqlconn:
     app.run(sqlconn)
 
 # so stellt man die verbindung mit der DB her 
-# close passiert wenn die WITH [kontextmanager] fertig ist
+# ACHTUNG: with sqlite3.connect(...) macht am Ende nur COMMIT (bzw. ROLLBACK bei Fehler),
+# die Verbindung wird dabei NICHT geschlossen -> conn.close() oder contextlib.closing() verwenden
 """
 conn = sqlite3.connect('tils.db')
 # TODO

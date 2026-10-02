@@ -13,7 +13,7 @@ class HttpServer:
         print(f"Server läuft auf {self.host}:{self.port}")
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_value, traceback): # Python uebergibt immer diese 3 Parameter
         self.close()
         print("Server gestoppt")
 

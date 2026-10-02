@@ -5,7 +5,7 @@ class App:
     def __init__(self): # Konstruktor
         # self.routes = {} # self.routes Datentyp -> Dict
         self.gets = {}
-        self.post = {}
+        self.posts = {}
 
     def route(self, path, dict):
         def inner(func):
@@ -15,11 +15,11 @@ class App:
     
     #die funktion welche unter dem dekorator stehen, werden in die routen reingeschrieben
     def get(self, path):
-        self.route(path,self.gets)
+        return self.route(path,self.gets) # return, sonst gibt der Decorator None zurueck
 
     #die funktion welche unter dem dekorator stehen, werden in die routen reingeschrieben    
     def post(self, path):
-        self.route(path,self.post)
+        return self.route(path,self.posts)
 
     def handle_request(self, request, server, sqlconn):
         method, path, headers, body = server.parse_http(request) #kriegt nur die antwort von der Http aber macht es nicht sleber

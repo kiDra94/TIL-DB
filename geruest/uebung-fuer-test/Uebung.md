@@ -41,10 +41,10 @@ import sqlite3
 with sqlite3.connect(../applicants.db) as conn:
     stmt = """SELECT a.first, s.name FROM applicants as a
               LEFT JOIN states as s ON  a.state_id = s.id
-              WHERE s.name LIKE {:statement}"""
+              WHERE s.name LIKE :statement"""
     
     cursore = conn.cursor()
-    result = cursore.execute(stmt, {'statment':'Abgehelent'})
+    result = cursore.execute(stmt, {'statement':'Abgelehnt'})
     for row in result.fetchall():
         print(row)
 
@@ -63,11 +63,11 @@ Class Sql:
     def update(self, data, conn):
         def decorator(func):
             cursor = conn.cursor()
-            stmt = "UPDATE applicants SET state = {:state} WHERE id = {:id}"
+            stmt = "UPDATE applicants SET state = :state WHERE id = :id"
             ids = func()
             for id in ids:
                 curosor.execute(stmt, {"state": data["state"], "id": id})
                 cursor.commit()
-            return cursors.execute("SELECT * FROM applicants WHERE id IN {:ids}", ids).fetchall()
+            return [cursor.execute("SELECT * FROM applicants WHERE id = :id", {"id": id}).fetchone() for id in ids]
         return decorator
 
